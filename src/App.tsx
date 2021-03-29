@@ -14,9 +14,11 @@ function App() {
   const [nofActiveTask, setNofActiveTask] = useState(0);
   const [tasks, setTasks] = useState<TasksInterface[]>([]);
   const addTask = () => {
-    setTasks([...tasks, { title, completed: false, id: uuidv4() }]);
-    setNofActiveTask((prv) => prv + 1);
-    setTitle("");
+    if (title !== "") {
+      setTasks([...tasks, { title, completed: false, id: uuidv4() }]);
+      setNofActiveTask((prv) => prv + 1);
+      setTitle("");
+    }
   };
   const handleDone = (id: string) => {
     let mapped = tasks.map((task) => {
