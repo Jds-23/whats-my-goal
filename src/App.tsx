@@ -22,11 +22,17 @@ function App() {
   };
   const handleDone = (id: string) => {
     let mapped = tasks.map((task) => {
-      return task.id === id
-        ? { ...task, completed: !task.completed }
-        : { ...task };
+      if (task.id === id) {
+        if (!task.completed) {
+          setNofActiveTask((prv) => prv - 1);
+        } else {
+          setNofActiveTask((prv) => prv + 1);
+        }
+        return { ...task, completed: !task.completed };
+      } else {
+        return { ...task };
+      }
     });
-    setNofActiveTask((prv) => prv - 1);
     setTasks(mapped);
   };
   return (
