@@ -1,0 +1,14 @@
+.task {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border-radius: 9px;
+  padding: 7px;
+  margin-top: 5px;
+  display: flex;
+}
+.task__title-completed {
+  text-decoration: line-through;
+}
+.task__title {
+  margin-left: 1.5rem;
+}
