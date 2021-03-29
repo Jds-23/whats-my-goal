@@ -37,7 +37,7 @@ function App() {
         />
         <button onClick={addTask}>Add</button>
       </div>
-      <TaskListHeader />
+      <TaskListHeader nofActiveTask={nofActiveTask} />
       {tasks.map(({ title, completed, id }) => {
         return (
           <Task
