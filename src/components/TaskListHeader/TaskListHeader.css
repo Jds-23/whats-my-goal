@@ -1,0 +1,14 @@
+.task-list-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 22px;
+  font-weight: bold;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+.task-list-header__text {
+  color: #fff;
+}
+.task-list-header__number {
+  color: #8c9ac2;
+}

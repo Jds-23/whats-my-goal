@@ -11,9 +11,11 @@ interface TasksInterface {
 }
 function App() {
   const [title, setTitle] = useState("");
+  const [nofActiveTask, setNofActiveTask] = useState(0);
   const [tasks, setTasks] = useState<TasksInterface[]>([]);
   const addTask = () => {
     setTasks([...tasks, { title, completed: false, id: uuidv4() }]);
+    setNofActiveTask((prv) => prv + 1);
     setTitle("");
   };
   const handleDone = (id: string) => {
@@ -22,9 +24,9 @@ function App() {
         ? { ...task, completed: !task.completed }
         : { ...task };
     });
+    setNofActiveTask((prv) => prv - 1);
     setTasks(mapped);
   };
-  console.log(tasks);
   return (
     <div className="app">
       <div>
