@@ -35,6 +35,15 @@ function App() {
     });
     setTasks(mapped);
   };
+  const handleDelete = (id: string) => {
+    let filtered = tasks.filter((task) => {
+      if (!task.completed) {
+        setNofActiveTask((prv) => prv - 1);
+      }
+      return task.id !== id;
+    });
+    setTasks(filtered);
+  };
   return (
     <div className="app">
       <div>
@@ -54,6 +63,7 @@ function App() {
             key={id}
             id={id}
             handleDone={handleDone}
+            handleDelete={handleDelete}
           />
         );
       })}

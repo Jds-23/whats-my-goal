@@ -12,3 +12,6 @@
 .task__title {
   margin-left: 1.5rem;
 }
+.task__delete-icon {
+  margin-left: auto;
+}
