@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 import { Task } from "./components/Task/";
 import { v4 as uuidv4 } from "uuid";
+import { TaskListHeader } from "./components/TaskListHeader/";
 
 interface TasksInterface {
   completed: boolean;
@@ -26,12 +27,15 @@ function App() {
   console.log(tasks);
   return (
     <div className="app">
-      <input
-        type="text"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
-      <button onClick={addTask}>Add</button>
+      <div>
+        <input
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+        <button onClick={addTask}>Add</button>
+      </div>
+      <TaskListHeader />
       {tasks.map(({ title, completed, id }) => {
         return (
           <Task
