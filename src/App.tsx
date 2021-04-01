@@ -37,7 +37,7 @@ function App() {
   };
   const handleDelete = (id: string) => {
     let filtered = tasks.filter((task) => {
-      if (!task.completed) {
+      if (!task.completed && task.id === id) {
         setNofActiveTask((prv) => prv - 1);
       }
       return task.id !== id;

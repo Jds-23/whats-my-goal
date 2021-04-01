@@ -1,6 +1,8 @@
 import React from "react";
 import "./Task.css";
 import deleteSvg from "./delete.svg";
+import { motion, useMotionValue, useTransform } from "framer-motion";
+import { useSwipeable } from "react-swipeable";
 interface props {
   title: string;
   completed: boolean;
@@ -15,8 +17,23 @@ const Task: React.FC<props> = ({
   handleDone,
   handleDelete,
 }: props) => {
+  const x = useMotionValue(0);
+  const opacity = useTransform(x, [-200, 0, 200], [0, 1, 0]);
+  const handlers = useSwipeable({
+    onSwipedLeft: () => handleDelete(id),
+    preventDefaultTouchmoveEvent: true,
+    trackMouse: true,
+  });
+
   return (
-    <div className="task">
+    <motion.div
+      className="task"
+      drag="x"
+      dragElastic
+      dragConstraints={{ left: -50, right: 0 }}
+      style={{ x, opacity }}
+      {...handlers}
+    >
       <label className="container">
         <input
           type="checkbox"
@@ -34,7 +51,7 @@ const Task: React.FC<props> = ({
         alt="delete"
         className="task__delete-icon"
       />
-    </div>
+    </motion.div>
   );
 };
 
