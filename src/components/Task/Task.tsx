@@ -18,7 +18,13 @@ const Task: React.FC<props> = ({
   handleDelete,
 }: props) => {
   const x = useMotionValue(0);
-  const opacity = useTransform(x, [-200, 0, 200], [0, 1, 0]);
+  const opacity = useTransform(x, [-200, 0, 200], [1, 1, 1]);
+  const colorOutput = [
+    "rgba(255, 0, 0, 0.5)",
+    "rgba(255, 255, 255, 0.2)",
+    "rgba(0, 255, 0, 0.5)",
+  ];
+  const backgroundColor = useTransform(x, [-50, 0, 50], colorOutput);
   const handlers = useSwipeable({
     onSwipedLeft: () => handleDelete(id),
     preventDefaultTouchmoveEvent: true,
@@ -31,7 +37,7 @@ const Task: React.FC<props> = ({
       drag="x"
       dragElastic
       dragConstraints={{ left: -50, right: 0 }}
-      style={{ x, opacity }}
+      style={{ x, opacity, backgroundColor }}
       {...handlers}
     >
       <label className="container">
