@@ -1,4 +1,4 @@
-# Whats My Goal
+# Whats My Goal | [Live](https://determined-allen-bce9f9.netlify.app/)
 
 Long-term thinking helps you determine what you think is most important in your life and thus provided clarity. But long term goals looks huge impossible and thus we procastinate.
 So, I write my 5-year goals or 10-year goals break them done to my 1-year goal then, 1-year to 1-month to 1-week to 1-day goals. This is what the application will help you to create and track those goals. 
