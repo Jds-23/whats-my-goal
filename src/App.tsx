@@ -3,7 +3,7 @@ import "./App.css";
 import { Task } from "./components/Task/";
 import { v4 as uuidv4 } from "uuid";
 import { TaskListHeader } from "./components/TaskListHeader/";
-
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 interface TasksInterface {
   completed: boolean;
   title: string;
@@ -44,6 +44,15 @@ function App() {
     });
     setTasks(filtered);
   };
+  const handleOnDragEnd = (result: any) => {
+    if (!result.destination) return;
+
+    const items = Array.from(tasks);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+
+    setTasks(items);
+  };
   return (
     <div className="app">
       <div>
@@ -55,18 +64,37 @@ function App() {
         <button onClick={addTask}>Add</button>
       </div>
       <TaskListHeader nofActiveTask={nofActiveTask} />
-      {tasks.map(({ title, completed, id }) => {
-        return (
-          <Task
-            title={title}
-            completed={completed}
-            key={id}
-            id={id}
-            handleDone={handleDone}
-            handleDelete={handleDelete}
-          />
-        );
-      })}
+      <DragDropContext onDragEnd={handleOnDragEnd}>
+        <Droppable droppableId="tasks">
+          {(provided) => (
+            <div {...provided.droppableProps} ref={provided.innerRef}>
+              {tasks.map(({ title, completed, id }, index) => {
+                return (
+                  <Draggable key={id} draggableId={id} index={index}>
+                    {(provided) => (
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                      >
+                        <Task
+                          title={title}
+                          completed={completed}
+                          key={id}
+                          id={id}
+                          handleDone={handleDone}
+                          handleDelete={handleDelete}
+                        />
+                      </div>
+                    )}
+                  </Draggable>
+                );
+              })}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
     </div>
   );
 }

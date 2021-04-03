@@ -34,9 +34,9 @@ const Task: React.FC<props> = ({
   return (
     <motion.div
       className="task"
-      drag="x"
+      drag
       dragElastic
-      dragConstraints={{ left: -50, right: 0 }}
+      dragConstraints={{ top: 0, bottom: 0, left: -50, right: 0 }}
       style={{ x, opacity, backgroundColor }}
       {...handlers}
     >
