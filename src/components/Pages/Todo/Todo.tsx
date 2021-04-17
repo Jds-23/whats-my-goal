@@ -1,36 +1,32 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Todo.css";
 import { Task } from "../../Task/";
 import { TaskListHeader } from "../../TaskListHeader/";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { useHooks } from "../../utils/hooks";
-function Todo() {
-  const {
-    nofActiveTask,
-    tasks,
-    addTask,
-    handleDone,
-    handleDelete,
-    handleOnDragEnd,
-  } = useHooks();
-  const [title, setTitle] = useState("");
+import { Link } from "react-router-dom";
+interface TasksInterface {
+  completed: boolean;
+  title: string;
+  id: string;
+}
+interface props {
+  nofActiveTask: number;
+  tasks: TasksInterface[];
+  addTask: Function;
+  handleDone: Function;
+  handleDelete: Function;
+  handleOnDragEnd: any;
+}
+const Todo: React.FC<props> = ({
+  nofActiveTask,
+  tasks,
+  handleDone,
+  handleDelete,
+  handleOnDragEnd,
+}: props) => {
   return (
     <div className="app">
-      <div>
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <button
-          onClick={() => {
-            addTask(title);
-            setTitle("");
-          }}
-        >
-          Add
-        </button>
-      </div>
+      <Link to="/create-task">Back</Link>
       <TaskListHeader nofActiveTask={nofActiveTask} />
       <DragDropContext onDragEnd={handleOnDragEnd}>
         <Droppable droppableId="tasks">
@@ -65,6 +61,6 @@ function Todo() {
       </DragDropContext>
     </div>
   );
-}
+};
 
 export default Todo;
