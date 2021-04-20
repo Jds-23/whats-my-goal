@@ -1,23 +1,34 @@
-import React, { createContext, ReactNode, useContext,useState } from "react";
+import React, { createContext, ReactNode, useContext, useState } from "react";
 
-interface StateContextInterface{
-    state:String;
-    setState:Function;
+interface TasksInterface {
+  completed: boolean;
+  title: string;
+  id: string;
 }
-interface Props{
-    children:ReactNode;
+interface StateContextInterface {
+  tasks: TasksInterface[];
+  setTasks: Function;
+  nofActiveTask: number;
+  setNofActiveTask: Function;
+}
+interface Props {
+  children: ReactNode;
 }
 
-export const StateContext = createContext<StateContextInterface | undefined>(undefined);
+export const StateContext = createContext<StateContextInterface | undefined>(
+  undefined
+);
 
-
-export const StateProvider = ({ children }:Props) => {
-    const [state,setState]=useState("What")
-    return(
-    <StateContext.Provider value={{state,setState}}>
-        {children}
+export const StateProvider = ({ children }: Props) => {
+  const [nofActiveTask, setNofActiveTask] = useState(0);
+  const [tasks, setTasks] = useState<TasksInterface[]>([]);
+  return (
+    <StateContext.Provider
+      value={{ tasks, setTasks, nofActiveTask, setNofActiveTask }}
+    >
+      {children}
     </StateContext.Provider>
-)};
-
+  );
+};
 
 export const useStateValue = () => useContext(StateContext);
