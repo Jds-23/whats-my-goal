@@ -1,31 +1,26 @@
-import React, { createContext, ReactNode, useContext, useState } from "react";
+import React, { createContext, ReactNode, useContext, useReducer } from "react";
 
 interface TasksInterface {
   completed: boolean;
   title: string;
   id: string;
 }
-interface StateContextInterface {
+interface StateInterface {
   tasks: TasksInterface[];
-  setTasks: Function;
+  user: string | undefined;
   nofActiveTask: number;
-  setNofActiveTask: Function;
 }
 interface Props {
+  reducer: any;
+  initialState: StateInterface;
   children: ReactNode;
 }
 
-export const StateContext = createContext<StateContextInterface | undefined>(
-  undefined
-);
+export const StateContext = createContext<any | undefined>(undefined);
 
-export const StateProvider = ({ children }: Props) => {
-  const [nofActiveTask, setNofActiveTask] = useState(0);
-  const [tasks, setTasks] = useState<TasksInterface[]>([]);
+export const StateProvider = ({ reducer, initialState, children }: Props) => {
   return (
-    <StateContext.Provider
-      value={{ tasks, setTasks, nofActiveTask, setNofActiveTask }}
-    >
+    <StateContext.Provider value={useReducer(reducer, initialState)}>
       {children}
     </StateContext.Provider>
   );

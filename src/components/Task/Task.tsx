@@ -3,20 +3,14 @@ import "./Task.css";
 import deleteSvg from "./delete.svg";
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import { useSwipeable } from "react-swipeable";
+import { useStateValue } from "../../context/StateProvider";
 interface props {
   title: string;
   completed: boolean;
   id: string;
-  handleDone: Function;
-  handleDelete: Function;
 }
-const Task: React.FC<props> = ({
-  title,
-  completed,
-  id,
-  handleDone,
-  handleDelete,
-}: props) => {
+const Task: React.FC<props> = ({ title, completed, id }: props) => {
+  const [, dispatch] = useStateValue();
   const x = useMotionValue(0);
   const opacity = useTransform(x, [-200, 0, 200], [1, 1, 1]);
   const colorOutput = [
@@ -30,7 +24,18 @@ const Task: React.FC<props> = ({
     preventDefaultTouchmoveEvent: true,
     trackMouse: true,
   });
-
+  const handleDelete = (id: string) => {
+    dispatch({
+      type: "REMOVE_TASK",
+      id,
+    });
+  };
+  const handleDone = (id: string) => {
+    dispatch({
+      type: "DONE_UNDONE_TASK",
+      id,
+    });
+  };
   return (
     <motion.div
       className="task"
